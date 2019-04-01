@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>終極密碼</title>
+</head>
+
+<body>
+    <div class="container py-5">
+        <div class="row mx-auto my-5" style="widows: 250px;">
+            <span id="result" class="col-12 text-center h1"></span>
+            <input class="col-12" type="number" name="" id="input" readonly>
+            <button type="button" class="bth bth-outline-dark col-4">1</button>
+            <button type="button" class="bth bth-outline-dark col-4">2</button>
+            <button type="button" class="bth bth-outline-dark col-4">3</button>
+            <button type="button" class="bth bth-outline-dark col-4">4</button>
+            <button type="button" class="bth bth-outline-dark col-4">5</button>
+            <button type="button" class="bth bth-outline-dark col-4">6</button>
+            <button type="button" class="bth bth-outline-dark col-4">7</button>
+            <button type="button" class="bth bth-outline-dark col-4">8</button>
+            <button type="button" class="bth bth-outline-dark col-4">9</button>
+            <button type="button" class="bth bth-outline-dark col-12">0</button>
+            <button id="clear" type="button" class="bth bth-outline-dark col-4">clear</button>
+            <button id="enter" type="button" class="bth bth-outline-dark col-4">enter</button>
+            <button id="restart" type="button" class="bth bth-outline-dark col-4">restart</button>
+        </div>
+    </div>
+    <script>
+        var valMin = 0;
+        var valMax = 100;
+        var answer = 0;
+        var result = document.getElementById("result");
+        var input = document.getElementById("input");
+        doStart();
+
+
+        function getNum() {
+            input.value += this.innerText;
+        }
+        var bth = document.getElementsByClassName("bth");
+        for (var i = 0; i < bth.length; i++) {
+            bth[i].onclick = getNum;
+        }
+        function doStart() {
+            valMax = 100;
+            valMin = 0;
+            answer = Math.floor(Math.random() * 100);
+            result.innerText = valMax + "~" + valMin;
+            alert(answer);
+        }
+        function doClear() {
+            input.value = "";
+        }
+        function doCheck() {
+            var guess = input.value - 0;
+            input.value = "";
+            if (guess == answer) {
+                alert("( ￣ 3￣)y▂ξ 你已經贏了");
+                alert("( ￣ 3￣)y▂ξ 再來一局吧");
+                doStart();
+                return;
+            }
+            else if (guess > answer && guess < valMax) {
+                valMax = guess;
+                result.innerText = valMax + "~" + valMin;
+                return;
+            }
+            else if (guess < answer && guess > valMin) {
+                valMin = guess;
+                result.innerText = valMax + "~" + valMin;
+                return;
+            }
+        }
+        document.getElementById("clear").onclick = doClear;
+        document.getElementById("enter").onclick = doCheck;
+        document.getElementById("restart").onclick = doStart;
+    </script>
+</body>
+
+</html>
